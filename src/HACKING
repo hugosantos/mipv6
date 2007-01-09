@@ -1,0 +1,21 @@
+Sample style to be used
+-----------------------
+
+  NOTE: Line width should not pass 80 columns.
+
+  /* method description if non-trivial */
+  int
+  foobar(void *arg1, int arg2)
+  {
+	if (arg2 < 0) {
+		return -1;
+	} else {
+		int i, res = 0, *ptr = (int *)arg1;
+
+		for (i = 0; i < arg2; i++) {
+			res += ptr[i];
+		}
+
+		return res;
+	}
+  }

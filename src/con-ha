@@ -1,0 +1,31 @@
+#!/usr/bin/perl -w
+
+use strict;
+use IO::Socket::UNIX;
+
+my $MRD_SOCKET = '/var/run/mipv6-ha-console';
+
+if (@ARGV == 0) {
+	print "No command specified.\n";
+	exit 1;
+}
+
+my $command = join(' ', @ARGV) . "\nexit\n";
+
+my $sock = new IO::Socket::UNIX(
+	Type	=> SOCK_STREAM,
+	Peer	=> $MRD_SOCKET,
+);
+
+if (not defined $sock) {
+	print "error $!\n";
+	exit 1;
+}
+
+print $sock $command or die "write: $!";
+
+while (<$sock>) {
+	print $_;
+}
+
+exit 0;
